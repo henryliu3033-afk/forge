@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+/* ─── GitHub Dark Design Tokens ─────────────────────────── */
+@theme {
+  --color-gh-bg:        #0D1117;
+  --color-gh-surface:   #161B22;
+  --color-gh-surface-2: #21262D;
+  --color-gh-surface-3: #2D333B;
+  --color-gh-border:    #30363D;
+  --color-gh-border-2:  #3D444D;
+  --color-gh-text:      #E6EDF3;
+  --color-gh-text-2:    #8B949E;
+  --color-gh-text-3:    #656D76;
+  --color-gh-blue:      #58A6FF;
+  --color-gh-blue-dim:  #1F6FEB;
+  --color-gh-green:     #3FB950;
+  --color-gh-green-dim: #238636;
+  --color-gh-orange:    #D29922;
+  --color-gh-red:       #F85149;
+  --color-gh-purple:    #BC8CFF;
+  --color-gh-cyan:      #39D353;
+
+  --font-mono: 'Fira Code', 'JetBrains Mono', monospace;
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+/* ─── Reset ─────────────────────────────────────────────── */
+
+html { height: 100%; }
+body {
+  height: 100%;
+  background: #0D1117;
+  color: #E6EDF3;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 28px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden; /* App layout, no page scroll */
+}
+#root { height: 100%; }
+
+/* ─── Scrollbar ─────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #30363D; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3D444D; }
+
+::selection { background: rgba(88,166,255,0.2); }
+
+/* ─── Font utilities ─────────────────────────────────────── */
+.font-mono { font-family: 'Fira Code', monospace; }
+.font-sans  { font-family: 'Inter', sans-serif; }
+
+/* ─── Cursor blink ───────────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.cursor-blink {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: #58A6FF;
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+  margin-left: 1px;
+}
+
+/* ─── Syntax highlight for {{vars}} ─────────────────────── */
+.var-highlight {
+  color: #D29922;
+  background: rgba(210,153,34,0.12);
+  border-radius: 3px;
+  padding: 0 2px;
+  font-style: italic;
+}
+
+/* ─── Page transitions ───────────────────────────────────── */
+.page-enter { animation: fadeIn 0.2s ease both; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ─── Streaming text animation ───────────────────────────── */
+@keyframes streamIn {
+  from { opacity: 0; transform: translateY(2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.stream-chunk { animation: streamIn 0.1s ease both; }
+
+/* ─── Tab bar ────────────────────────────────────────────── */
+.tab-active {
+  border-bottom: 1px solid #58A6FF;
+  color: #E6EDF3;
+  background: #0D1117;
+}
+.tab-inactive {
+  color: #8B949E;
+  background: #161B22;
+  border-bottom: 1px solid transparent;
+}
+.tab-inactive:hover { color: #C9D1D9; background: #1C2128; }
+
+/* ─── Line numbers ───────────────────────────────────────── */
+.line-numbers {
+  counter-reset: line;
+}
+.line-numbers .line::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 2.5rem;
+  text-align: right;
+  padding-right: 0.75rem;
+  color: #3D444D;
+  user-select: none;
+  font-size: 24px;
+}

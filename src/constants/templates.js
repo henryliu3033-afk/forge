@@ -1,0 +1,198 @@
+export const TEMPLATE_TAGS = ['All', 'Writing', 'Code', 'Analysis', 'Chat', 'Creative']
+
+export const TEMPLATES = [
+  // ── Writing ──────────────────────────────────────────────
+  {
+    id: 'tpl-blog',
+    title: 'Blog Post Generator',
+    tag: 'Writing',
+    description: 'Generate a full blog post from a topic and target audience.',
+    system: 'You are an expert content writer. Write engaging, SEO-friendly blog posts that are informative and easy to read. Use clear headers, short paragraphs, and a conversational tone.',
+    userPrompt: 'Write a comprehensive blog post about {{topic}} for {{audience}}.\n\nRequirements:\n- Approximately {{word_count}} words\n- Include an introduction, 3-5 main sections, and a conclusion\n- Add actionable takeaways\n- Tone: {{tone}}',
+    variables: { topic: 'remote work productivity', audience: 'software developers', word_count: '800', tone: 'professional but friendly' },
+  },
+  {
+    id: 'tpl-email',
+    title: 'Email Rewriter',
+    tag: 'Writing',
+    description: 'Rewrite any email to be clearer and more professional.',
+    system: 'You are a professional business communication expert. Rewrite emails to be clear, concise, and professional while preserving the original intent.',
+    userPrompt: 'Rewrite this email to sound more {{tone}}:\n\n{{original_email}}\n\nContext: {{context}}',
+    variables: { tone: 'professional', original_email: 'hey can you send me that doc asap thanks', context: 'Request to colleague for project files' },
+  },
+  {
+    id: 'tpl-cover-letter',
+    title: 'Cover Letter Writer',
+    tag: 'Writing',
+    description: 'Generate a tailored cover letter for any job application.',
+    system: 'You are a career coach who writes compelling cover letters. Write personalized, authentic cover letters that highlight relevant experience and enthusiasm.',
+    userPrompt: 'Write a cover letter for:\n\nPosition: {{position}}\nCompany: {{company}}\nMy background: {{background}}\nKey requirements from job posting: {{requirements}}',
+    variables: { position: 'Senior Frontend Engineer', company: 'Acme Corp', background: '5 years React experience, led 3 product teams', requirements: 'React, TypeScript, team leadership' },
+  },
+
+  // ── Code ─────────────────────────────────────────────────
+  {
+    id: 'tpl-code-review',
+    title: 'Code Reviewer',
+    tag: 'Code',
+    description: 'Get a thorough code review with suggestions and fixes.',
+    system: 'You are a senior software engineer conducting code reviews. Provide specific, actionable feedback on code quality, potential bugs, performance, security, and best practices.',
+    userPrompt: 'Review this {{language}} code:\n\n```{{language}}\n{{code}}\n```\n\nFocus on: {{focus_areas}}',
+    variables: { language: 'JavaScript', code: 'function getData() { return fetch(url).then(r => r.json()) }', focus_areas: 'error handling, async/await patterns, edge cases' },
+  },
+  {
+    id: 'tpl-regex',
+    title: 'Regex Builder',
+    tag: 'Code',
+    description: 'Build and explain regex patterns for any use case.',
+    system: 'You are a regex expert. Create precise regular expressions and explain them clearly. Always provide examples of what matches and what does not.',
+    userPrompt: 'Create a regex pattern for {{language}} to match: {{description}}\n\nExample inputs that should match: {{match_examples}}\nExample inputs that should NOT match: {{no_match_examples}}',
+    variables: { language: 'JavaScript', description: 'valid email addresses', match_examples: 'user@example.com, test.name+tag@domain.co', no_match_examples: 'notanemail, @missing.com' },
+  },
+  {
+    id: 'tpl-sql',
+    title: 'SQL Query Helper',
+    tag: 'Code',
+    description: 'Generate and optimize SQL queries from natural language.',
+    system: 'You are a database expert. Write efficient, well-commented SQL queries. Consider indexing, performance, and readability.',
+    userPrompt: 'Database: {{database_type}}\n\nSchema:\n```sql\n{{schema}}\n```\n\nWrite a query to: {{requirement}}\n\nAdditional constraints: {{constraints}}',
+    variables: { database_type: 'PostgreSQL', schema: 'users(id, name, email, created_at)\norders(id, user_id, amount, status)', requirement: 'Get all users who spent more than $1000 in the last 30 days', constraints: 'Include user name and total spent amount' },
+  },
+  {
+    id: 'tpl-unit-test',
+    title: 'Unit Test Generator',
+    tag: 'Code',
+    description: 'Generate comprehensive unit tests for any function.',
+    system: 'You are a testing expert. Write thorough unit tests covering happy paths, edge cases, and error scenarios. Follow testing best practices.',
+    userPrompt: 'Generate unit tests for this {{language}} function using {{framework}}:\n\n```{{language}}\n{{function_code}}\n```',
+    variables: { language: 'TypeScript', framework: 'Jest', function_code: 'function add(a: number, b: number): number { return a + b }' },
+  },
+  {
+    id: 'tpl-docs',
+    title: 'Code Documenter',
+    tag: 'Code',
+    description: 'Auto-generate JSDoc/docstring comments for your code.',
+    system: 'You are a technical writer specializing in code documentation. Write clear, accurate docstrings that explain what the code does, its parameters, return values, and any exceptions.',
+    userPrompt: 'Add {{doc_style}} documentation comments to this {{language}} code:\n\n```{{language}}\n{{code}}\n```',
+    variables: { doc_style: 'JSDoc', language: 'JavaScript', code: 'function calculateTax(income, rate) { return income * rate / 100 }' },
+  },
+
+  // ── Analysis ─────────────────────────────────────────────
+  {
+    id: 'tpl-summarize',
+    title: 'Document Summarizer',
+    tag: 'Analysis',
+    description: 'Summarize any long text into key points.',
+    system: 'You are an expert at extracting key information from documents. Create clear, structured summaries that capture the most important points.',
+    userPrompt: 'Summarize the following {{document_type}} in {{format}}:\n\n{{text}}\n\nTarget audience: {{audience}}',
+    variables: { document_type: 'article', format: '5 bullet points', text: 'Paste your text here...', audience: 'busy executives' },
+  },
+  {
+    id: 'tpl-sentiment',
+    title: 'Sentiment Analyzer',
+    tag: 'Analysis',
+    description: 'Analyze sentiment and emotions in any text.',
+    system: 'You are a sentiment analysis expert. Analyze text for sentiment, emotions, and tone. Provide structured JSON output with confidence scores.',
+    userPrompt: 'Analyze the sentiment of this {{content_type}}:\n\n"{{text}}"\n\nReturn JSON with: overall_sentiment, score (-1 to 1), emotions [], key_phrases [], and a brief explanation.',
+    variables: { content_type: 'customer review', text: 'The product works but the delivery was very slow. Customer service did try to help.' },
+  },
+  {
+    id: 'tpl-competitive',
+    title: 'Competitive Analysis',
+    tag: 'Analysis',
+    description: 'Framework for analyzing competitors in any market.',
+    system: 'You are a business strategist with expertise in market analysis. Provide structured, insightful competitive analyses.',
+    userPrompt: 'Conduct a competitive analysis for:\n\nMy product: {{my_product}}\nCompetitors: {{competitors}}\nMarket: {{market}}\n\nAnalyze: strengths, weaknesses, positioning, and differentiation opportunities.',
+    variables: { my_product: 'B2B project management SaaS', competitors: 'Asana, Monday.com, Jira', market: 'Enterprise software teams' },
+  },
+
+  // ── Chat / System Prompts ─────────────────────────────────
+  {
+    id: 'tpl-support-bot',
+    title: 'Customer Support Bot',
+    tag: 'Chat',
+    description: 'System prompt for a helpful customer support agent.',
+    system: 'You are a friendly and professional customer support agent for {{company_name}}. You help customers with {{support_topics}}.\n\nGuidelines:\n- Always be empathetic and patient\n- Provide clear, step-by-step solutions\n- If you cannot help, escalate to a human agent\n- Keep responses concise but complete',
+    userPrompt: '{{customer_message}}',
+    variables: { company_name: 'Acme SaaS', support_topics: 'account issues, billing, technical problems', customer_message: 'I cannot log into my account. I tried resetting my password but the email never arrived.' },
+  },
+  {
+    id: 'tpl-tutor',
+    title: 'Personal Tutor',
+    tag: 'Chat',
+    description: 'Adaptive tutor for any subject and skill level.',
+    system: 'You are a patient, encouraging tutor specializing in {{subject}}. Adapt your explanations to a {{level}} level. Use analogies, examples, and the Socratic method when appropriate.',
+    userPrompt: '{{question}}',
+    variables: { subject: 'machine learning', level: 'beginner', question: 'Can you explain what gradient descent is?' },
+  },
+  {
+    id: 'tpl-interview',
+    title: 'Interview Coach',
+    tag: 'Chat',
+    description: 'Mock interview practice for any role.',
+    system: 'You are an experienced interviewer for {{company_type}} companies, conducting a {{interview_type}} interview for a {{role}} position. Ask one question at a time, wait for the response, then provide constructive feedback before the next question.',
+    userPrompt: '{{candidate_message}}',
+    variables: { company_type: 'tech startup', interview_type: 'behavioral', role: 'senior engineer', candidate_message: 'I\'m ready to start the interview.' },
+  },
+
+  // ── Creative ─────────────────────────────────────────────
+  {
+    id: 'tpl-story',
+    title: 'Story Starter',
+    tag: 'Creative',
+    description: 'Generate compelling story openings and outlines.',
+    system: 'You are a creative writing expert. Generate engaging story starters with vivid descriptions, compelling characters, and hooks that make readers want more.',
+    userPrompt: 'Write the opening scene of a {{genre}} story set in {{setting}}.\n\nMain character: {{character}}\nConflict: {{conflict}}\nTone: {{tone}}',
+    variables: { genre: 'sci-fi thriller', setting: 'near-future Tokyo', character: 'a hacker who discovers she\'s been living in a simulation', conflict: 'uncovering the truth while being hunted', tone: 'tense and atmospheric' },
+  },
+  {
+    id: 'tpl-ad-copy',
+    title: 'Ad Copy Generator',
+    tag: 'Creative',
+    description: 'Write compelling ad copy for any platform.',
+    system: 'You are a world-class copywriter. Write persuasive, benefit-focused ad copy that converts. Use proven frameworks like AIDA and PAS.',
+    userPrompt: 'Write {{num_variations}} variations of ad copy for:\n\nProduct: {{product}}\nTarget audience: {{audience}}\nPlatform: {{platform}}\nKey benefit: {{benefit}}\nCall to action: {{cta}}',
+    variables: { num_variations: '3', product: 'AI writing assistant', audience: 'busy marketers', platform: 'LinkedIn', benefit: 'Save 5 hours a week on content creation', cta: 'Start free trial' },
+  },
+  {
+    id: 'tpl-product-desc',
+    title: 'Product Description',
+    tag: 'Creative',
+    description: 'Write SEO-optimized product descriptions.',
+    system: 'You are an ecommerce copywriting expert. Write product descriptions that highlight benefits over features, create desire, and include relevant keywords.',
+    userPrompt: 'Write a product description for:\n\nProduct: {{product_name}}\nKey features: {{features}}\nTarget customer: {{customer}}\nTone: {{tone}}\nLength: {{length}}',
+    variables: { product_name: 'Ergonomic Mesh Office Chair', features: 'lumbar support, adjustable armrests, breathable mesh back', customer: 'remote workers with back pain', tone: 'professional', length: '150 words' },
+  },
+
+  // ── Utility ───────────────────────────────────────────────
+  {
+    id: 'tpl-translate',
+    title: 'Translator',
+    tag: 'Writing',
+    description: 'Translate text while preserving tone and nuance.',
+    system: 'You are a professional translator with expertise in maintaining tone, nuance, and cultural context. Provide natural-sounding translations.',
+    userPrompt: 'Translate the following from {{source_language}} to {{target_language}}. Preserve the tone and style:\n\n{{text}}\n\nAlso note any cultural nuances or idiomatic expressions.',
+    variables: { source_language: 'English', target_language: 'Traditional Chinese', text: 'We need to move fast and break things.' },
+  },
+  {
+    id: 'tpl-data-clean',
+    title: 'Data Formatter',
+    tag: 'Analysis',
+    description: 'Clean and reformat messy data into structured output.',
+    system: 'You are a data engineer. Parse and reformat messy, unstructured data into clean, structured formats.',
+    userPrompt: 'Convert this messy data into {{output_format}}:\n\n{{raw_data}}\n\nFields to extract: {{fields}}\nHandle missing values as: {{missing_value_strategy}}',
+    variables: { output_format: 'JSON array', raw_data: 'John Smith, 32, NYC, john@example.com\nJane Doe 28 LA jane@test.com', fields: 'name, age, city, email', missing_value_strategy: 'null' },
+  },
+  {
+    id: 'tpl-first-principles',
+    title: 'First Principles Breakdown',
+    tag: 'Analysis',
+    description: 'Break down any complex topic using first principles thinking.',
+    system: 'You are a systematic thinker who uses first principles reasoning. Break down complex topics into their fundamental components, challenge assumptions, and rebuild understanding from the ground up.',
+    userPrompt: 'Apply first principles thinking to: {{topic}}\n\n1. Identify and challenge the core assumptions\n2. Break it down to fundamental truths\n3. Rebuild the understanding from scratch\n4. Identify non-obvious insights',
+    variables: { topic: 'Why do most startups fail?' },
+  },
+]
+
+export const getTemplatesByTag = (tag) =>
+  tag === 'All' ? TEMPLATES : TEMPLATES.filter((t) => t.tag === tag)
